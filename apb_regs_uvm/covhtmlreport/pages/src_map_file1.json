@@ -1,0 +1,11 @@
+var g_data = {'dummy':null,
+'7':'D:/uvm-1.2/src/base/uvm_traversal.svh',
+'8':'D:/uvm-1.2/src/uvm_pkg.sv',
+'1':'rtl/apb-master/src/apb_regs.sv',
+'3':'rtl/common_cells-master/src/cc_addr_decode.sv',
+'2':'rtl/common_cells-master/src/cc_addr_decode_dync.sv',
+'4':'rtl/common_cells-master/src/deprecated/addr_decode.sv',
+'9':'tb/env/apb_coverage.sv',
+'10':'tb/env/apb_uvm_pkg.sv',
+'6':'tb/top/apb_protocol_checker.sv',
+'5':'tb/top/tb_top.sv'};

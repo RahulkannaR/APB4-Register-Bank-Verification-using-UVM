@@ -1,0 +1,5 @@
+-html
+-htmldir
+coverage_runs/coverage_html_report
+-verbose
+coverage_runs/merged_final.ucdb

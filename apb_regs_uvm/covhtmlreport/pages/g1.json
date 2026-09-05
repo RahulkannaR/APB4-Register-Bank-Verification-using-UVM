@@ -1,0 +1,21 @@
+var g_data = {
+g936:[{dummy:0},
+{name:'cg_apb',f:1,type:1,id:937,tb:'69',h:'8',m:'61',hp:'11.59%',cov:['37.03%','R'],g:'100.00%',gp:['37.03%','R'],opts:[[],['merge_instance','auto(true)']],lnk:'__HDL_srcfile_9.htm#22',parent:'936'},
+{name:'\\/apb_uvm_pkg::apb_coverage::cg_apb ',f:1,type:2,id:944,tb:'69',h:'8',m:'61',hp:'11.59%',cov:['37.03%','R'],g:'100.00%',gp:['37.03%','R'],opts:[[],['per_instance','true']],lnk:'__HDL_srcfile_9.htm#22',cvg:'cg_apb',parent:'937'}],
+c937:{name:'cg_apb',type:1,pHash:'936',pPath:'/apb_uvm_pkg/apb_coverage',totals:[15,5,'33.33%','R',54,3,'5.55%','R'],cvp:[{dummy:0},
+{name:'cp_reg_idx',f:1,type:4,id:938,tb:'9',h:'1',m:'8',hp:'11.11%',cov:['11.11%','R'],g:'100.00%',gp:['11.11%','R'],hasb:1,lnk:'__HDL_srcfile_9.htm#25',parent:'937'},
+{name:'cp_rw',f:1,type:4,id:939,tb:'2',h:'2',m:'0',hp:'100.00%',cov:['100.00%','G'],g:'100.00%',gp:['100.00%','G'],hasb:1,lnk:'__HDL_srcfile_9.htm#30',parent:'937'},
+{name:'cp_pslverr',f:1,type:4,id:940,tb:'2',h:'1',m:'1',hp:'50.00%',cov:['50.00%','Y'],g:'100.00%',gp:['50.00%','Y'],hasb:1,lnk:'__HDL_srcfile_9.htm#35',parent:'937'},
+{name:'cp_is_ro',f:1,type:4,id:941,tb:'2',h:'1',m:'1',hp:'50.00%',cov:['50.00%','Y'],g:'100.00%',gp:['50.00%','Y'],hasb:1,lnk:'__HDL_srcfile_9.htm#40',parent:'937'}],crx:[{dummy:0},
+{name:'x_idx_rw_ro',f:1,type:5,id:942,tb:'36',h:'2',m:'34',hp:'5.55%',cov:['5.55%','R'],g:'100.00%',gp:['5.55%','R'],hasb:1,lnk:'__HDL_srcfile_9.htm#46',parent:'937',cross:['cp_reg_idx','cp_rw','cp_is_ro']},
+{name:'x_idx_err',f:1,type:5,id:943,tb:'18',h:'1',m:'17',hp:'5.55%',cov:['5.55%','R'],g:'100.00%',gp:['5.55%','R'],hasb:1,lnk:'__HDL_srcfile_9.htm#49',parent:'937',cross:['cp_reg_idx','cp_pslverr']}]},
+c944:{name:'\\/apb_uvm_pkg::apb_coverage::cg_apb ',type:2,pHash:'936',pPath:'/apb_uvm_pkg/apb_coverage',totals:[15,5,'33.33%','R',54,3,'5.55%','R'],cvp:[{dummy:0},
+{name:'cp_reg_idx',f:1,type:4,id:945,tb:'9',h:'1',m:'8',hp:'11.11%',cov:['11.11%','R'],g:'100.00%',gp:['11.11%','R'],hasb:1,lnk:'__HDL_srcfile_9.htm#25',parent:'944'},
+{name:'cp_rw',f:1,type:4,id:946,tb:'2',h:'2',m:'0',hp:'100.00%',cov:['100.00%','G'],g:'100.00%',gp:['100.00%','G'],hasb:1,lnk:'__HDL_srcfile_9.htm#30',parent:'944'},
+{name:'cp_pslverr',f:1,type:4,id:947,tb:'2',h:'1',m:'1',hp:'50.00%',cov:['50.00%','Y'],g:'100.00%',gp:['50.00%','Y'],hasb:1,lnk:'__HDL_srcfile_9.htm#35',parent:'944'},
+{name:'cp_is_ro',f:1,type:4,id:948,tb:'2',h:'1',m:'1',hp:'50.00%',cov:['50.00%','Y'],g:'100.00%',gp:['50.00%','Y'],hasb:1,lnk:'__HDL_srcfile_9.htm#40',parent:'944'}],crx:[{dummy:0},
+{name:'x_idx_rw_ro',f:1,type:5,id:949,tb:'36',h:'2',m:'34',hp:'5.55%',cov:['5.55%','R'],g:'100.00%',gp:['5.55%','R'],hasb:1,lnk:'__HDL_srcfile_9.htm#46',parent:'944',cross:['cp_reg_idx','cp_rw','cp_is_ro']},
+{name:'x_idx_err',f:1,type:5,id:950,tb:'18',h:'1',m:'17',hp:'5.55%',cov:['5.55%','R'],g:'100.00%',gp:['5.55%','R'],hasb:1,lnk:'__HDL_srcfile_9.htm#49',parent:'944',cross:['cp_reg_idx','cp_pslverr']}]},
+dummyEnd:0
+};
+processCovergroupsData(g_data);

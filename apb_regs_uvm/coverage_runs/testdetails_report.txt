@@ -1,0 +1,11 @@
+QuestaSim-64 vcover 10.7c Coverage Utility 2018.08 Aug 18 2018
+Start time: 13:52:39 on Sep 04,2026
+vcover report -testdetails coverage_runs/merged_final.ucdb 
+
+TOTAL COVERGROUP COVERAGE: 100.00%  COVERGROUP TYPES: 1
+
+TOTAL DIRECTIVE COVERAGE: 100.00%  COVERS: 1
+
+TOTAL ASSERTION COVERAGE: 94.44%  ASSERTIONS: 18
+End time: 13:52:39 on Sep 04,2026, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

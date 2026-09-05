@@ -1,0 +1,10 @@
+D:/uvm-1.2/src/base/uvm_traversal.svh
+D:/uvm-1.2/src/uvm_pkg.sv
+rtl/apb-master/src/apb_regs.sv
+rtl/common_cells-master/src/cc_addr_decode.sv
+rtl/common_cells-master/src/cc_addr_decode_dync.sv
+rtl/common_cells-master/src/deprecated/addr_decode.sv
+tb/env/apb_coverage.sv
+tb/env/apb_uvm_pkg.sv
+tb/top/apb_protocol_checker.sv
+tb/top/tb_top.sv

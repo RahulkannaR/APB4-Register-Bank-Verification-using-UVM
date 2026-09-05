@@ -1,0 +1,22 @@
+# do _tmp_apb_single_write_read_test.do
+# QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 18 2018
+# Start time: 12:39:56 on Sep 03,2026
+# vlog -sv -cover bcst "+incdir+D:/uvm-1.2/src" D:/uvm-1.2/src/uvm_pkg.sv 
+# -- Compiling package uvm_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 12:39:58 on Sep 03,2026, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 18 2018
+# Start time: 12:39:58 on Sep 03,2026
+# vlog -work work rtl/apb-master/src/apb_pkg.sv 
+# ** Error: (vlog-7) Failed to open design unit file "rtl/apb-master/src/apb_pkg.sv" in read mode.
+# No such file or directory. (errno = ENOENT)
+# End time: 12:39:58 on Sep 03,2026, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 0
+# ** Error: C:/questasim64_10.7c/win64/vlog failed.
+# Error in macro ./_tmp_apb_single_write_read_test.do line 20
+# C:/questasim64_10.7c/win64/vlog failed.
+#     while executing
+# "vlog -work work rtl/apb-master/src/apb_pkg.sv"

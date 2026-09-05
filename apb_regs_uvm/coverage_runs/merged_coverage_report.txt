@@ -1,0 +1,208 @@
+QuestaSim-64 vcover 10.7c Coverage Utility 2018.08 Aug 18 2018
+Start time: 13:52:36 on Sep 04,2026
+vcover report -details coverage_runs/merged_final.ucdb 
+COVERGROUP COVERAGE:
+-----------------------------------------------------------------------------------------------
+Covergroup                                             Metric       Goal    Status               
+                                                                                              
+-----------------------------------------------------------------------------------------------
+ TYPE /apb_uvm_pkg/apb_coverage/cg_apb                100.00%        100    Covered              
+    covered/total bins:                                    30         30                      
+    missing/total bins:                                     0         30                      
+    % Hit:                                            100.00%        100                      
+    Coverpoint cg_apb::cp_reg_idx                     100.00%        100    Covered              
+        covered/total bins:                                 9          9                      
+        missing/total bins:                                 0          9                      
+        % Hit:                                        100.00%        100                      
+        bin valid_idx[0]                                  299          1    Covered              
+        bin valid_idx[1]                                  299          1    Covered              
+        bin valid_idx[2]                                  443          1    Covered              
+        bin valid_idx[3]                                  415          1    Covered              
+        bin valid_idx[4]                                  327          1    Covered              
+        bin valid_idx[5]                                  308          1    Covered              
+        bin valid_idx[6]                                  272          1    Covered              
+        bin valid_idx[7]                                  105          1    Covered              
+        bin out_of_range                                  231          1    Covered              
+    Coverpoint cg_apb::cp_rw                          100.00%        100    Covered              
+        covered/total bins:                                 2          2                      
+        missing/total bins:                                 0          2                      
+        % Hit:                                        100.00%        100                      
+        bin write                                        1357          1    Covered              
+        bin read                                         1342          1    Covered              
+    Coverpoint cg_apb::cp_pslverr                     100.00%        100    Covered              
+        covered/total bins:                                 2          2                      
+        missing/total bins:                                 0          2                      
+        % Hit:                                        100.00%        100                      
+        bin ok                                           2330          1    Covered              
+        bin error                                         369          1    Covered              
+    Coverpoint cg_apb::cp_is_ro                       100.00%        100    Covered              
+        covered/total bins:                                 2          2                      
+        missing/total bins:                                 0          2                      
+        % Hit:                                        100.00%        100                      
+        bin ro                                            299          1    Covered              
+        bin rw                                           2400          1    Covered              
+    Cross cg_apb::x_idx_rw_ro                         100.00%        100    Covered              
+        covered/total bins:                                 4          4                      
+        missing/total bins:                                 0          4                      
+        % Hit:                                        100.00%        100                      
+        ignore_bin writable_regs_never_ro                   0               ZERO                 
+        ignore_bin out_of_range_never_ro                    0               ZERO                 
+        ignore_bin reg0_never_rw                         2169               Occurred             
+        bin <valid_idx[0],read,ro>                        159          1    Covered              
+        bin <valid_idx[0],write,ro>                       140          1    Covered              
+        bin <out_of_range,read,rw>                        113          1    Covered              
+        bin <out_of_range,write,rw>                       118          1    Covered              
+    Cross cg_apb::x_idx_err                           100.00%        100    Covered              
+        covered/total bins:                                11         11                      
+        missing/total bins:                                 0         11                      
+        % Hit:                                        100.00%        100                      
+        bin <valid_idx[2],ok>                             443          1    Covered              
+        ignore_bin writable_regs_never_error                0               ZERO                 
+        bin <valid_idx[0],ok>                             159          1    Covered              
+        bin <valid_idx[4],ok>                             327          1    Covered              
+        bin <valid_idx[6],ok>                             272          1    Covered              
+        bin <valid_idx[1],ok>                             299          1    Covered              
+        bin <valid_idx[5],ok>                             308          1    Covered              
+        bin <valid_idx[3],ok>                             415          1    Covered              
+        bin <valid_idx[7],ok>                             105          1    Covered              
+        bin <valid_idx[0],error>                          140          1    Covered              
+        bin <out_of_range,error>                          229          1    Covered              
+        bin <out_of_range,ok>                               2          1    Covered              
+ Covergroup instance \/apb_uvm_pkg::apb_coverage::cg_apb  
+                                                      100.00%        100    Covered              
+    covered/total bins:                                    30         30                      
+    missing/total bins:                                     0         30                      
+    % Hit:                                            100.00%        100                      
+    Coverpoint cp_reg_idx                             100.00%        100    Covered              
+        covered/total bins:                                 9          9                      
+        missing/total bins:                                 0          9                      
+        % Hit:                                        100.00%        100                      
+        bin valid_idx[0]                                  299          1    Covered              
+        bin valid_idx[1]                                  299          1    Covered              
+        bin valid_idx[2]                                  443          1    Covered              
+        bin valid_idx[3]                                  415          1    Covered              
+        bin valid_idx[4]                                  327          1    Covered              
+        bin valid_idx[5]                                  308          1    Covered              
+        bin valid_idx[6]                                  272          1    Covered              
+        bin valid_idx[7]                                  105          1    Covered              
+        bin out_of_range                                  231          1    Covered              
+    Coverpoint cp_rw                                  100.00%        100    Covered              
+        covered/total bins:                                 2          2                      
+        missing/total bins:                                 0          2                      
+        % Hit:                                        100.00%        100                      
+        bin write                                        1357          1    Covered              
+        bin read                                         1342          1    Covered              
+    Coverpoint cp_pslverr                             100.00%        100    Covered              
+        covered/total bins:                                 2          2                      
+        missing/total bins:                                 0          2                      
+        % Hit:                                        100.00%        100                      
+        bin ok                                           2330          1    Covered              
+        bin error                                         369          1    Covered              
+    Coverpoint cp_is_ro                               100.00%        100    Covered              
+        covered/total bins:                                 2          2                      
+        missing/total bins:                                 0          2                      
+        % Hit:                                        100.00%        100                      
+        bin ro                                            299          1    Covered              
+        bin rw                                           2400          1    Covered              
+    Cross x_idx_rw_ro                                 100.00%        100    Covered              
+        covered/total bins:                                 4          4                      
+        missing/total bins:                                 0          4                      
+        % Hit:                                        100.00%        100                      
+        ignore_bin writable_regs_never_ro                   0               ZERO                 
+        ignore_bin out_of_range_never_ro                    0               ZERO                 
+        ignore_bin reg0_never_rw                         2169               Occurred             
+        bin <valid_idx[0],read,ro>                        159          1    Covered              
+        bin <valid_idx[0],write,ro>                       140          1    Covered              
+        bin <out_of_range,read,rw>                        113          1    Covered              
+        bin <out_of_range,write,rw>                       118          1    Covered              
+    Cross x_idx_err                                   100.00%        100    Covered              
+        covered/total bins:                                11         11                      
+        missing/total bins:                                 0         11                      
+        % Hit:                                        100.00%        100                      
+        bin <valid_idx[2],ok>                             443          1    Covered              
+        ignore_bin writable_regs_never_error                0               ZERO                 
+        bin <valid_idx[0],ok>                             159          1    Covered              
+        bin <valid_idx[4],ok>                             327          1    Covered              
+        bin <valid_idx[6],ok>                             272          1    Covered              
+        bin <valid_idx[1],ok>                             299          1    Covered              
+        bin <valid_idx[5],ok>                             308          1    Covered              
+        bin <valid_idx[3],ok>                             415          1    Covered              
+        bin <valid_idx[7],ok>                             105          1    Covered              
+        bin <valid_idx[0],error>                          140          1    Covered              
+        bin <out_of_range,error>                          229          1    Covered              
+        bin <out_of_range,ok>                               2          1    Covered              
+
+TOTAL COVERGROUP COVERAGE: 100.00%  COVERGROUP TYPES: 1
+
+DIRECTIVE COVERAGE:
+---------------------------------------------------------------------------------------------
+Name                                     Design Design   Lang File(Line)      Count Status    
+                                         Unit   UnitType                                      
+---------------------------------------------------------------------------------------------
+/tb_top/u_protocol_checker/cover_consecutive_transfer 
+                                         apb_protocol_checker Verilog  SVA  tb/top/apb_protocol_checker.sv(46)
+                                                                               2624 Covered   
+
+TOTAL DIRECTIVE COVERAGE: 100.00%  COVERS: 1
+
+ASSERTION RESULTS:
+--------------------------------------------------------------------
+Name                 File(Line)                   Failure      Pass 
+                                                  Count        Count
+--------------------------------------------------------------------
+/tb_top/u_dut/p_assertions/immed__193
+                     rtl/apb-master/src/apb_regs.sv(193)
+                                                        0         31
+/tb_top/u_dut/p_assertions/immed__191
+                     rtl/apb-master/src/apb_regs.sv(191)
+                                                        0         31
+/tb_top/u_dut/p_assertions/immed__189
+                     rtl/apb-master/src/apb_regs.sv(189)
+                                                        0         31
+/tb_top/u_dut/p_assertions/immed__187
+                     rtl/apb-master/src/apb_regs.sv(187)
+                                                        0         31
+/tb_top/u_dut/p_assertions/immed__185
+                     rtl/apb-master/src/apb_regs.sv(185)
+                                                        0         31
+/tb_top/u_dut/p_assertions/immed__183
+                     rtl/apb-master/src/apb_regs.sv(183)
+                                                        0         31
+/tb_top/u_dut/p_assertions/immed__181
+                     rtl/apb-master/src/apb_regs.sv(181)
+                                                        0         31
+/tb_top/u_dut/p_assertions/immed__179
+                     rtl/apb-master/src/apb_regs.sv(179)
+                                                        0         31
+/tb_top/u_dut/p_assertions/immed__177
+                     rtl/apb-master/src/apb_regs.sv(177)
+                                                        0         31
+/tb_top/u_dut/p_assertions/immed__175
+                     rtl/apb-master/src/apb_regs.sv(175)
+                                                        0         31
+/tb_top/u_dut/i_addr_decode/i_cc_addr_decode/i_addr_decode_dync/proc_check_parameters/addr_width_mismatch
+                     rtl/common_cells-master/src/cc_addr_decode_dync.sv(133)
+                                                        0         31
+/tb_top/u_dut/i_addr_decode/i_cc_addr_decode/i_addr_decode_dync/proc_check_parameters/norules_0
+                     rtl/common_cells-master/src/cc_addr_decode_dync.sv(136)
+                                                        0         31
+/tb_top/u_dut/i_addr_decode/i_cc_addr_decode/i_addr_decode_dync/proc_check_addr_map/#anonblk#91913411#152#5#/check_start
+                     rtl/common_cells-master/src/cc_addr_decode_dync.sv(153)
+                                                        0         31
+/tb_top/u_dut/i_addr_decode/i_cc_addr_decode/i_addr_decode_dync/proc_check_addr_map/#anonblk#91913411#152#5#/#anonblk#91913411#160#5#/check_overlap
+                     rtl/common_cells-master/src/cc_addr_decode_dync.sv(162)
+                                                        0         31
+/tb_top/u_protocol_checker/a_setup_one_cycle
+                     tb/top/apb_protocol_checker.sv(14)
+                                                        0         31
+/tb_top/u_protocol_checker/a_paddr_pwdata_stable
+                     tb/top/apb_protocol_checker.sv(29)
+                                                        0          0
+/tb_top/u_protocol_checker/a_no_setup_skip
+                     tb/top/apb_protocol_checker.sv(37)
+                                                        0         31
+/uvm_pkg/uvm_component_name_check_visitor/visit/immed__262
+                     D:/uvm-1.2/src/base/uvm_traversal.svh(262)
+                                                        0         31
+End time: 13:52:36 on Sep 04,2026, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

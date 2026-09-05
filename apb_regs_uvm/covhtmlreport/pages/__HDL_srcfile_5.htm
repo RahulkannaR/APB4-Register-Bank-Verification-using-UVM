@@ -1,0 +1,138 @@
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+  <title>Questa Coverage Report</title>
+  <link rel="StyleSheet" media="screen" href="../css/hdl2html.css"/>
+</head>
+<body id="hdl2html">
+  <tt>
+<pre>
+<a name="1"><q-n>     1  </q-n></a><q-m>//-----------------------------------------------------------------------------</q-m>
+<a name="2"><q-n>     2  </q-n></a><q-m>// tb_top.sv</q-m>
+<a name="3"><q-n>     3  </q-n></a><q-m>// Top-level testbench: clock/reset gen, apb_if instance, struct packing</q-m>
+<a name="4"><q-n>     4  </q-n></a><q-m>// glue between apb_if (flat signals) and apb_regs DUT (req_t/resp_t ports),</q-m>
+<a name="5"><q-n>     5  </q-n></a><q-m>// UVM config_db wiring, run_test() launch.</q-m>
+<a name="6"><q-n>     6  </q-n></a><q-m>//-----------------------------------------------------------------------------</q-m>
+<a name="7"><q-n>     7  </q-n></a>`<q-a>timescale</q-w> 1<q-v>ns</q-w>/1<q-v>ps</q-w>
+<a name="8"><q-n>     8  </q-n></a>
+<a name="9"><q-n>     9  </q-n></a><q-w>import</q-w> uvm_pkg::*;
+<a name="10"><q-n>     10  </q-n></a><q-w>import</q-w> apb_uvm_pkg::*;
+<a name="11"><q-n>     11  </q-n></a>`<q-i>include</q-w> <q-l>"uvm_macros.svh"</q-l>
+<a name="12"><q-n>     12  </q-n></a>`<q-i>include</q-w> <q-l>"apb_protocol_checker.sv"</q-l>
+<a name="13"><q-n>     13  </q-n></a>`<q-i>include</q-w> <q-l>"reset_if.sv"</q-l>
+<a name="14"><q-n>     14  </q-n></a>
+<a name="15"><q-n>     15  </q-n></a><q-w>module</q-w> tb_top;
+<a name="16"><q-n>     16  </q-n></a>
+<a name="17"><q-n>     17  </q-n></a>  <q-m>//---------------------------------------------------------------------</q-m>
+<a name="18"><q-n>     18  </q-n></a>  <q-m>// Parameters  MUST match apb_reg_block / apb_scoreboard / apb_coverage</q-m>
+<a name="19"><q-n>     19  </q-n></a>  <q-m>//---------------------------------------------------------------------</q-m>
+<a name="20"><q-n>     20  </q-n></a>  <q-w>localparam</q-w> <q-w>int</q-w> <q-w>unsigned</q-w> NoApbRegs    = 8;
+<a name="21"><q-n>     21  </q-n></a>  <q-w>localparam</q-w> <q-w>int</q-w> <q-w>unsigned</q-w> ApbAddrWidth = 12;
+<a name="22"><q-n>     22  </q-n></a>  <q-w>localparam</q-w> <q-w>int</q-w> <q-w>unsigned</q-w> AddrOffset   = 4;
+<a name="23"><q-n>     23  </q-n></a>  <q-w>localparam</q-w> <q-w>int</q-w> <q-w>unsigned</q-w> ApbDataWidth = 32;
+<a name="24"><q-n>     24  </q-n></a>  <q-w>localparam</q-w> <q-w>int</q-w> <q-w>unsigned</q-w> RegDataWidth = 32;
+<a name="25"><q-n>     25  </q-n></a>  <q-w>localparam</q-w> <q-w>bit</q-w> [NoApbRegs-1:0] ReadOnly = 8'b0000_0001;
+<a name="26"><q-n>     26  </q-n></a>  <q-w>localparam</q-w> <q-w>logic</q-w> [ApbAddrWidth-1:0] BaseAddr = 12'h000;
+<a name="27"><q-n>     27  </q-n></a>
+<a name="28"><q-n>     28  </q-n></a>  <q-m>//---------------------------------------------------------------------</q-m>
+<a name="29"><q-n>     29  </q-n></a>  <q-m>// Clock</q-m>
+<a name="30"><q-n>     30  </q-n></a>  <q-m>//---------------------------------------------------------------------</q-m>
+<a name="31"><q-n>     31  </q-n></a>  <q-w>logic</q-w> pclk;
+<a name="32"><q-n>     32  </q-n></a>
+<a name="33"><q-n>     33  </q-n></a>  <q-w>initial</q-w> pclk = 0;
+<a name="34"><q-n>     34  </q-n></a>  <q-w>always</q-w> #5 pclk = ~pclk; <q-m>// 100MHz</q-m>
+<a name="35"><q-n>     35  </q-n></a>
+<a name="36"><q-n>     36  </q-n></a>  <q-m>//---------------------------------------------------------------------</q-m>
+<a name="37"><q-n>     37  </q-n></a>  <q-m>// Reset  now test-controlled via reset_if / apb_reset_driver</q-m>
+<a name="38"><q-n>     38  </q-n></a>  <q-m>//---------------------------------------------------------------------</q-m>
+<a name="39"><q-n>     39  </q-n></a>  reset_if rst_if();
+<a name="40"><q-n>     40  </q-n></a>  <q-m>//wire preset_n = rst_if.preset_n;</q-m>
+<a name="41"><q-n>     41  </q-n></a>
+<a name="42"><q-n>     42  </q-n></a>  <q-w>initial</q-w> rst_if.preset_n = 1'b0; <q-m>// starting state; base_test drives the real sequence</q-m>
+<a name="43"><q-n>     43  </q-n></a>
+<a name="44"><q-n>     44  </q-n></a>  <q-m>//---------------------------------------------------------------------</q-m>
+<a name="45"><q-n>     45  </q-n></a>  <q-m>// APB interface instance</q-m>
+<a name="46"><q-n>     46  </q-n></a>  <q-m>//---------------------------------------------------------------------</q-m>
+<a name="47"><q-n>     47  </q-n></a>  apb_if vif (.pclk(pclk), .preset_n(rst_if.preset_n));
+<a name="48"><q-n>     48  </q-n></a>
+<a name="49"><q-n>     49  </q-n></a>  <q-m>//---------------------------------------------------------------------</q-m>
+<a name="50"><q-n>     50  </q-n></a>  <q-m>// DUT req/resp struct wires + pack/unpack glue</q-m>
+<a name="51"><q-n>     51  </q-n></a>  <q-m>//---------------------------------------------------------------------</q-m>
+<a name="52"><q-n>     52  </q-n></a>  apb_req_t  dut_req;
+<a name="53"><q-n>     53  </q-n></a>  apb_resp_t dut_resp;
+<a name="54"><q-n>     54  </q-n></a>
+<a name="55"><q-n>     55  </q-n></a>  <q-w>assign</q-w> dut_req.paddr   = vif.paddr[ApbAddrWidth-1:0];
+<a name="56"><q-n>     56  </q-n></a>  <q-w>assign</q-w> dut_req.pprot   = vif.pprot;
+<a name="57"><q-n>     57  </q-n></a>  <q-w>assign</q-w> dut_req.psel    = vif.psel;
+<a name="58"><q-n>     58  </q-n></a>  <q-w>assign</q-w> dut_req.penable = vif.penable;
+<a name="59"><q-n>     59  </q-n></a>  <q-w>assign</q-w> dut_req.pwrite  = vif.pwrite;
+<a name="60"><q-n>     60  </q-n></a>  <q-w>assign</q-w> dut_req.pwdata  = vif.pwdata;
+<a name="61"><q-n>     61  </q-n></a>  <q-w>assign</q-w> dut_req.pstrb   = vif.pstrb;
+<a name="62"><q-n>     62  </q-n></a>
+<a name="63"><q-n>     63  </q-n></a>  <q-w>assign</q-w> vif.pready  = dut_resp.pready;
+<a name="64"><q-n>     64  </q-n></a>  <q-w>assign</q-w> vif.prdata  = dut_resp.prdata;
+<a name="65"><q-n>     65  </q-n></a>  <q-w>assign</q-w> vif.pslverr = dut_resp.pslverr;
+<a name="66"><q-n>     66  </q-n></a>
+<a name="67"><q-n>     67  </q-n></a>  <q-m>//---------------------------------------------------------------------</q-m>
+<a name="68"><q-n>     68  </q-n></a>  <q-m>// Register-side ports (testbench drives init values, not RTL params)</q-m>
+<a name="69"><q-n>     69  </q-n></a>  <q-m>//---------------------------------------------------------------------</q-m>
+<a name="70"><q-n>     70  </q-n></a>  <q-w>logic</q-w> [NoApbRegs-1:0][RegDataWidth-1:0] reg_init;
+<a name="71"><q-n>     71  </q-n></a>  <q-w>logic</q-w> [NoApbRegs-1:0][RegDataWidth-1:0] reg_q_out;
+<a name="72"><q-n>     72  </q-n></a>
+<a name="73"><q-n>     73  </q-n></a>  <q-w>genvar</q-w> gi;
+<a name="74"><q-n>     74  </q-n></a>  <q-w>generate</q-w>
+<a name="75"><q-n>     75  </q-n></a>    <q-w>for</q-w> (gi = 0; gi &lt; NoApbRegs; gi++) <q-w>begin</q-w> : g_reg_init
+<a name="76"><q-n>     76  </q-n></a>      <q-w>assign</q-w> reg_init[gi] = '0; <q-m>// must match apb_reg_block reset values</q-m>
+<a name="77"><q-n>     77  </q-n></a>    <q-w>end</q-w>
+<a name="78"><q-n>     78  </q-n></a>  <q-w>endgenerate</q-w>
+<a name="79"><q-n>     79  </q-n></a>
+<a name="80"><q-n>     80  </q-n></a>  <q-m>//---------------------------------------------------------------------</q-m>
+<a name="81"><q-n>     81  </q-n></a>  <q-m>// DUT instantiation</q-m>
+<a name="82"><q-n>     82  </q-n></a>  <q-m>//---------------------------------------------------------------------</q-m>
+<a name="83"><q-n>     83  </q-n></a>  apb_regs #(
+<a name="84"><q-n>     84  </q-n></a>    .NoApbRegs    (NoApbRegs),
+<a name="85"><q-n>     85  </q-n></a>    .ApbAddrWidth (ApbAddrWidth),
+<a name="86"><q-n>     86  </q-n></a>    .AddrOffset   (AddrOffset),
+<a name="87"><q-n>     87  </q-n></a>    .ApbDataWidth (ApbDataWidth),
+<a name="88"><q-n>     88  </q-n></a>    .RegDataWidth (RegDataWidth),
+<a name="89"><q-n>     89  </q-n></a>    .ReadOnly     (ReadOnly),
+<a name="90"><q-n>     90  </q-n></a>    .req_t        (apb_req_t),
+<a name="91"><q-n>     91  </q-n></a>    .resp_t       (apb_resp_t)
+<a name="92"><q-n>     92  </q-n></a>  ) u_dut (
+<a name="93"><q-n>     93  </q-n></a>    .pclk_i      (pclk),
+<a name="94"><q-n>     94  </q-n></a>    .preset_ni   (rst_if.preset_n),
+<a name="95"><q-n>     95  </q-n></a>    .req_i       (dut_req),
+<a name="96"><q-n>     96  </q-n></a>    .resp_o      (dut_resp),
+<a name="97"><q-n>     97  </q-n></a>    .base_addr_i (BaseAddr),
+<a name="98"><q-n>     98  </q-n></a>    .reg_init_i  (reg_init),
+<a name="99"><q-n>     99  </q-n></a>    .reg_q_o     (reg_q_out)
+<a name="100"><q-n>     100  </q-n></a>  );
+<a name="101"><q-n>     101  </q-n></a>
+<a name="102"><q-n>     102  </q-n></a>  apb_protocol_checker u_protocol_checker (.vif(vif));
+<a name="103"><q-n>     103  </q-n></a>
+<a name="104"><q-n>     104  </q-n></a>  <q-m>//---------------------------------------------------------------------</q-m>
+<a name="105"><q-n>     105  </q-n></a>  <q-m>// UVM config_db wiring + test launch</q-m>
+<a name="106"><q-n>     106  </q-n></a>  <q-m>//---------------------------------------------------------------------</q-m>
+<a name="107"><q-n>     107  </q-n></a>  <q-w>initial</q-w> <q-w>begin</q-w>
+<a name="108"><q-n>     108  </q-n></a>    uvm_config_db#(<q-w>virtual</q-w> apb_if.DRIVER)::set(<q-w>null</q-w>, <q-l>"*.agent.driver"</q-l>,  <q-l>"vif"</q-l>, vif);
+<a name="109"><q-n>     109  </q-n></a>    uvm_config_db#(<q-w>virtual</q-w> apb_if.MONITOR)::set(<q-w>null</q-w>, <q-l>"*.agent.monitor"</q-l>, <q-l>"vif"</q-l>, vif);
+<a name="110"><q-n>     110  </q-n></a>    uvm_config_db#(<q-w>virtual</q-w> reset_if)::set(<q-w>null</q-w>, <q-l>"*"</q-l>, <q-l>"rst_vif"</q-l>, rst_if);
+<a name="111"><q-n>     111  </q-n></a>    run_test();
+<a name="112"><q-n>     112  </q-n></a>  <q-w>end</q-w>
+<a name="113"><q-n>     113  </q-n></a>
+<a name="114"><q-n>     114  </q-n></a>  <q-m>//---------------------------------------------------------------------</q-m>
+<a name="115"><q-n>     115  </q-n></a>  <q-m>// Optional: waveform dump for run.do</q-m>
+<a name="116"><q-n>     116  </q-n></a>  <q-m>//---------------------------------------------------------------------</q-m>
+<a name="117"><q-n>     117  </q-n></a>  <q-w>initial</q-w> <q-w>begin</q-w>
+<a name="118"><q-n>     118  </q-n></a>    $dumpfile(<q-l>"apb_tb.vcd"</q-l>);
+<a name="119"><q-n>     119  </q-n></a>    $dumpvars(0, tb_top);
+<a name="120"><q-n>     120  </q-n></a>  <q-w>end</q-w>
+<a name="121"><q-n>     121  </q-n></a>
+<a name="122"><q-n>     122  </q-n></a><q-w>endmodule</q-w>
+</pre>
+</tt>
+
+  
+</body>
+</html>

@@ -1,0 +1,181 @@
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+  <title>Questa Coverage Report</title>
+  <link rel="StyleSheet" media="screen" href="../css/hdl2html.css"/>
+</head>
+<body id="hdl2html">
+  <tt>
+<pre>
+<a name="1"><q-n>     1  </q-n></a><q-m>//-----------------------------------------------------------------------------</q-m>
+<a name="2"><q-n>     2  </q-n></a><q-m>// apb_uvm_pkg.sv</q-m>
+<a name="3"><q-n>     3  </q-n></a><q-m>// Top-level UVM package. Compile this AFTER apb_if.sv and the DUT's own</q-m>
+<a name="4"><q-n>     4  </q-n></a><q-m>// apb_pkg.sv, BEFORE tb_top.sv. Include order below = dependency order.</q-m>
+<a name="5"><q-n>     5  </q-n></a><q-m>//-----------------------------------------------------------------------------</q-m>
+<a name="6"><q-n>     6  </q-n></a><q-w>package</q-w> apb_uvm_pkg;
+<a name="7"><q-n>     7  </q-n></a>
+<a name="8"><q-n>     8  </q-n></a>  	<q-w>import</q-w> uvm_pkg::*;
+<a name="9"><q-n>     9  </q-n></a>	`<q-i>include</q-w> <q-l>"uvm_macros.svh"</q-l>
+<a name="10"><q-n>     10  </q-n></a>
+<a name="11"><q-n>     11  </q-n></a>  	<q-m>// DUT req/resp struct typedefs  must match apb_regs port types</q-m>
+<a name="12"><q-n>     12  </q-n></a>  	<q-w>parameter</q-w> <q-w>int</q-w> <q-w>unsigned</q-w> ApbAddrWidth = 12;
+<a name="13"><q-n>     13  </q-n></a>  	<q-w>parameter</q-w> <q-w>int</q-w> <q-w>unsigned</q-w> ApbDataWidth = 32;
+<a name="14"><q-n>     14  </q-n></a>
+<a name="15"><q-n>     15  </q-n></a>  	<q-w>typedef</q-w> <q-w>struct</q-w> <q-w>packed</q-w> {
+<a name="16"><q-n>     16  </q-n></a>    	<q-w>logic</q-w> [ApbAddrWidth-1:0]    paddr;
+<a name="17"><q-n>     17  </q-n></a>    	apb_pkg::prot_t             pprot;
+<a name="18"><q-n>     18  </q-n></a>    	<q-w>logic</q-w>                       psel;
+<a name="19"><q-n>     19  </q-n></a>    	<q-w>logic</q-w>                       penable;
+<a name="20"><q-n>     20  </q-n></a>    	<q-w>logic</q-w>                       pwrite;
+<a name="21"><q-n>     21  </q-n></a>    	<q-w>logic</q-w> [ApbDataWidth-1:0]    pwdata;
+<a name="22"><q-n>     22  </q-n></a>    	<q-w>logic</q-w> [ApbDataWidth/8-1:0]  pstrb;
+<a name="23"><q-n>     23  </q-n></a>  	} apb_req_t;
+<a name="24"><q-n>     24  </q-n></a>
+<a name="25"><q-n>     25  </q-n></a>  	<q-w>typedef</q-w> <q-w>struct</q-w> <q-w>packed</q-w> {
+<a name="26"><q-n>     26  </q-n></a>    	<q-w>logic</q-w>                    pready;
+<a name="27"><q-n>     27  </q-n></a>    	<q-w>logic</q-w> [ApbDataWidth-1:0] prdata;
+<a name="28"><q-n>     28  </q-n></a>    	<q-w>logic</q-w>                    pslverr;
+<a name="29"><q-n>     29  </q-n></a>  	} apb_resp_t;
+<a name="30"><q-n>     30  </q-n></a>
+<a name="31"><q-n>     31  </q-n></a>
+<a name="32"><q-n>     32  </q-n></a>  `<q-i>include</q-w> <q-l>"apb_seq_item.sv"</q-l>
+<a name="33"><q-n>     33  </q-n></a>  `<q-i>include</q-w> <q-l>"apb_reg_block.sv"</q-l>
+<a name="34"><q-n>     34  </q-n></a>  `<q-i>include</q-w> <q-l>"apb_reg_adapter.sv"</q-l>
+<a name="35"><q-n>     35  </q-n></a>  `<q-i>include</q-w> <q-l>"apb_sequencer.sv"</q-l>
+<a name="36"><q-n>     36  </q-n></a>  `<q-i>include</q-w> <q-l>"apb_driver.sv"</q-l>
+<a name="37"><q-n>     37  </q-n></a>  `<q-i>include</q-w> <q-l>"apb_reset_driver.sv"</q-l>
+<a name="38"><q-n>     38  </q-n></a>  `<q-i>include</q-w> <q-l>"apb_monitor.sv"</q-l>
+<a name="39"><q-n>     39  </q-n></a>  `<q-i>include</q-w> <q-l>"apb_agent.sv"</q-l>
+<a name="40"><q-n>     40  </q-n></a>  `<q-i>include</q-w> <q-l>"apb_scoreboard.sv"</q-l>
+<a name="41"><q-n>     41  </q-n></a>  `<q-i>include</q-w> <q-l>"apb_coverage.sv"</q-l>
+<a name="42"><q-n>     42  </q-n></a>  `<q-i>include</q-w> <q-l>"apb_env.sv"</q-l>
+<a name="43"><q-n>     43  </q-n></a>  `<q-i>include</q-w> <q-l>"apb_base_seq.sv"</q-l>
+<a name="44"><q-n>     44  </q-n></a>  `<q-i>include</q-w> <q-l>"apb_base_test.sv"</q-l>
+<a name="45"><q-n>     45  </q-n></a>
+<a name="46"><q-n>     46  </q-n></a> <q-m>// ---------------------------------------------------------</q-m>
+<a name="47"><q-n>     47  </q-n></a><q-m>// 1. Normal / Functional (Sanity) Tests</q-m>
+<a name="48"><q-n>     48  </q-n></a><q-m>// ---------------------------------------------------------</q-m>
+<a name="49"><q-n>     49  </q-n></a>`<q-i>include</q-w> <q-l>"apb_single_write_read_seq.sv"</q-l>
+<a name="50"><q-n>     50  </q-n></a>`<q-i>include</q-w> <q-l>"apb_single_write_read_test.sv"</q-l>
+<a name="51"><q-n>     51  </q-n></a>
+<a name="52"><q-n>     52  </q-n></a>`<q-i>include</q-w> <q-l>"apb_all_regs_write_read_seq.sv"</q-l>
+<a name="53"><q-n>     53  </q-n></a>`<q-i>include</q-w> <q-l>"apb_all_regs_write_read_test.sv"</q-l>
+<a name="54"><q-n>     54  </q-n></a>
+<a name="55"><q-n>     55  </q-n></a>`<q-i>include</q-w> <q-l>"apb_back_to_back_wr_rd_seq.sv"</q-l>
+<a name="56"><q-n>     56  </q-n></a>`<q-i>include</q-w> <q-l>"apb_back_to_back_wr_rd_test.sv"</q-l>
+<a name="57"><q-n>     57  </q-n></a>
+<a name="58"><q-n>     58  </q-n></a>`<q-i>include</q-w> <q-l>"apb_reset_value_check_seq.sv"</q-l>
+<a name="59"><q-n>     59  </q-n></a>`<q-i>include</q-w> <q-l>"apb_reset_value_check_test.sv"</q-l>
+<a name="60"><q-n>     60  </q-n></a>
+<a name="61"><q-n>     61  </q-n></a>`<q-i>include</q-w> <q-l>"apb_readonly_write_attempt_seq.sv"</q-l>
+<a name="62"><q-n>     62  </q-n></a>`<q-i>include</q-w> <q-l>"apb_readonly_write_attempt_test.sv"</q-l>
+<a name="63"><q-n>     63  </q-n></a>
+<a name="64"><q-n>     64  </q-n></a>`<q-i>include</q-w> <q-l>"apb_address_decode_isolation_seq.sv"</q-l>
+<a name="65"><q-n>     65  </q-n></a>`<q-i>include</q-w> <q-l>"apb_address_decode_isolation_test.sv"</q-l>
+<a name="66"><q-n>     66  </q-n></a>
+<a name="67"><q-n>     67  </q-n></a><q-m>// ---------------------------------------------------------</q-m>
+<a name="68"><q-n>     68  </q-n></a><q-m>// 2. Corner Tests</q-m>
+<a name="69"><q-n>     69  </q-n></a><q-m>// ---------------------------------------------------------</q-m>
+<a name="70"><q-n>     70  </q-n></a>`<q-i>include</q-w> <q-l>"apb_first_reg_access_seq.sv"</q-l>
+<a name="71"><q-n>     71  </q-n></a>`<q-i>include</q-w> <q-l>"apb_first_reg_access_test.sv"</q-l>
+<a name="72"><q-n>     72  </q-n></a>
+<a name="73"><q-n>     73  </q-n></a>`<q-i>include</q-w> <q-l>"apb_last_reg_access_seq.sv"</q-l>
+<a name="74"><q-n>     74  </q-n></a>`<q-i>include</q-w> <q-l>"apb_last_reg_access_test.sv"</q-l>
+<a name="75"><q-n>     75  </q-n></a>
+<a name="76"><q-n>     76  </q-n></a>`<q-i>include</q-w> <q-l>"apb_walking_ones_data_seq.sv"</q-l>
+<a name="77"><q-n>     77  </q-n></a>`<q-i>include</q-w> <q-l>"apb_walking_ones_data_test.sv"</q-l>
+<a name="78"><q-n>     78  </q-n></a>
+<a name="79"><q-n>     79  </q-n></a>`<q-i>include</q-w> <q-l>"apb_walking_zeros_data_seq.sv"</q-l>
+<a name="80"><q-n>     80  </q-n></a>`<q-i>include</q-w> <q-l>"apb_walking_zeros_data_test.sv"</q-l>
+<a name="81"><q-n>     81  </q-n></a>
+<a name="82"><q-n>     82  </q-n></a>`<q-i>include</q-w> <q-l>"apb_all_ones_all_zeros_seq.sv"</q-l>
+<a name="83"><q-n>     83  </q-n></a>`<q-i>include</q-w> <q-l>"apb_all_ones_all_zeros_test.sv"</q-l>
+<a name="84"><q-n>     84  </q-n></a>
+<a name="85"><q-n>     85  </q-n></a>`<q-i>include</q-w> <q-l>"apb_same_reg_repeated_access_seq.sv"</q-l>
+<a name="86"><q-n>     86  </q-n></a>`<q-i>include</q-w> <q-l>"apb_same_reg_repeated_access_test.sv"</q-l>
+<a name="87"><q-n>     87  </q-n></a>
+<a name="88"><q-n>     88  </q-n></a><q-m>// ---------------------------------------------------------</q-m>
+<a name="89"><q-n>     89  </q-n></a><q-m>// 3. Edge-Case Tests</q-m>
+<a name="90"><q-n>     90  </q-n></a><q-m>// ---------------------------------------------------------</q-m>
+<a name="91"><q-n>     91  </q-n></a>`<q-i>include</q-w> <q-l>"apb_hole_address_access_seq.sv"</q-l>
+<a name="92"><q-n>     92  </q-n></a>`<q-i>include</q-w> <q-l>"apb_hole_address_access_test.sv"</q-l>
+<a name="93"><q-n>     93  </q-n></a>
+<a name="94"><q-n>     94  </q-n></a>`<q-i>include</q-w> <q-l>"apb_out_of_range_high_seq.sv"</q-l>
+<a name="95"><q-n>     95  </q-n></a>`<q-i>include</q-w> <q-l>"apb_out_of_range_high_test.sv"</q-l>
+<a name="96"><q-n>     96  </q-n></a>
+<a name="97"><q-n>     97  </q-n></a>`<q-i>include</q-w> <q-l>"apb_out_of_range_low_seq.sv"</q-l>
+<a name="98"><q-n>     98  </q-n></a>`<q-i>include</q-w> <q-l>"apb_out_of_range_low_test.sv"</q-l>
+<a name="99"><q-n>     99  </q-n></a>
+<a name="100"><q-n>     100  </q-n></a>`<q-i>include</q-w> <q-l>"apb_reset_mid_transaction_seq.sv"</q-l>
+<a name="101"><q-n>     101  </q-n></a>`<q-i>include</q-w> <q-l>"apb_reset_mid_transaction_test.sv"</q-l>
+<a name="102"><q-n>     102  </q-n></a>
+<a name="103"><q-n>     103  </q-n></a>`<q-i>include</q-w> <q-l>"apb_back_to_back_reset_pulses_seq.sv"</q-l>
+<a name="104"><q-n>     104  </q-n></a>`<q-i>include</q-w> <q-l>"apb_back_to_back_reset_pulses_test.sv"</q-l>
+<a name="105"><q-n>     105  </q-n></a>
+<a name="106"><q-n>     106  </q-n></a>`<q-i>include</q-w> <q-l>"apb_partial_write_pstrb_seq.sv"</q-l>
+<a name="107"><q-n>     107  </q-n></a>`<q-i>include</q-w> <q-l>"apb_partial_write_pstrb_test.sv"</q-l>
+<a name="108"><q-n>     108  </q-n></a>
+<a name="109"><q-n>     109  </q-n></a><q-m>// ---------------------------------------------------------</q-m>
+<a name="110"><q-n>     110  </q-n></a><q-m>// 4. Error / Negative Tests</q-m>
+<a name="111"><q-n>     111  </q-n></a><q-m>// ---------------------------------------------------------</q-m>
+<a name="112"><q-n>     112  </q-n></a>`<q-i>include</q-w> <q-l>"apb_unmapped_addr_read_seq.sv"</q-l>
+<a name="113"><q-n>     113  </q-n></a>`<q-i>include</q-w> <q-l>"apb_unmapped_addr_read_test.sv"</q-l>
+<a name="114"><q-n>     114  </q-n></a>
+<a name="115"><q-n>     115  </q-n></a>`<q-i>include</q-w> <q-l>"apb_unmapped_addr_write_seq.sv"</q-l>
+<a name="116"><q-n>     116  </q-n></a>`<q-i>include</q-w> <q-l>"apb_unmapped_addr_write_test.sv"</q-l>
+<a name="117"><q-n>     117  </q-n></a>
+<a name="118"><q-n>     118  </q-n></a>`<q-i>include</q-w> <q-l>"apb_repeated_unmapped_access_seq.sv"</q-l>
+<a name="119"><q-n>     119  </q-n></a>`<q-i>include</q-w> <q-l>"apb_repeated_unmapped_access_test.sv"</q-l>
+<a name="120"><q-n>     120  </q-n></a>
+<a name="121"><q-n>     121  </q-n></a>`<q-i>include</q-w> <q-l>"apb_readonly_write_error_check_seq.sv"</q-l>
+<a name="122"><q-n>     122  </q-n></a>`<q-i>include</q-w> <q-l>"apb_readonly_write_error_check_test.sv"</q-l>
+<a name="123"><q-n>     123  </q-n></a>
+<a name="124"><q-n>     124  </q-n></a><q-m>// ---------------------------------------------------------</q-m>
+<a name="125"><q-n>     125  </q-n></a><q-m>// 5. Reset / Initialization Tests</q-m>
+<a name="126"><q-n>     126  </q-n></a><q-m>// ---------------------------------------------------------</q-m>
+<a name="127"><q-n>     127  </q-n></a>`<q-i>include</q-w> <q-l>"apb_power_on_reset_values_seq.sv"</q-l>
+<a name="128"><q-n>     128  </q-n></a>`<q-i>include</q-w> <q-l>"apb_power_on_reset_values_test.sv"</q-l>
+<a name="129"><q-n>     129  </q-n></a>
+<a name="130"><q-n>     130  </q-n></a>`<q-i>include</q-w> <q-l>"apb_reset_then_immediate_write_seq.sv"</q-l>
+<a name="131"><q-n>     131  </q-n></a>`<q-i>include</q-w> <q-l>"apb_reset_then_immediate_write_test.sv"</q-l>
+<a name="132"><q-n>     132  </q-n></a>
+<a name="133"><q-n>     133  </q-n></a>`<q-i>include</q-w> <q-l>"apb_reset_retains_readonly_init_seq.sv"</q-l>
+<a name="134"><q-n>     134  </q-n></a>`<q-i>include</q-w> <q-l>"apb_reset_retains_readonly_init_test.sv"</q-l>
+<a name="135"><q-n>     135  </q-n></a>
+<a name="136"><q-n>     136  </q-n></a><q-m>// ---------------------------------------------------------</q-m>
+<a name="137"><q-n>     137  </q-n></a><q-m>// 6. Protocol-Compliance Tests</q-m>
+<a name="138"><q-n>     138  </q-n></a><q-m>// ---------------------------------------------------------</q-m>
+<a name="139"><q-n>     139  </q-n></a>`<q-i>include</q-w> <q-l>"apb_idle_setup_access_seq.sv"</q-l>
+<a name="140"><q-n>     140  </q-n></a>`<q-i>include</q-w> <q-l>"apb_idle_setup_access_test.sv"</q-l>
+<a name="141"><q-n>     141  </q-n></a>
+<a name="142"><q-n>     142  </q-n></a>`<q-i>include</q-w> <q-l>"apb_paddr_pwdata_stability_seq.sv"</q-l>
+<a name="143"><q-n>     143  </q-n></a>`<q-i>include</q-w> <q-l>"apb_paddr_pwdata_stability_test.sv"</q-l>
+<a name="144"><q-n>     144  </q-n></a>
+<a name="145"><q-n>     145  </q-n></a>`<q-i>include</q-w> <q-l>"apb_consecutive_transfer_no_idle_seq.sv"</q-l>
+<a name="146"><q-n>     146  </q-n></a>`<q-i>include</q-w> <q-l>"apb_consecutive_transfer_no_idle_test.sv"</q-l>
+<a name="147"><q-n>     147  </q-n></a>
+<a name="148"><q-n>     148  </q-n></a>`<q-i>include</q-w> <q-l>"apb_pready_wait_state_seq.sv"</q-l>
+<a name="149"><q-n>     149  </q-n></a>`<q-i>include</q-w> <q-l>"apb_pready_wait_state_test.sv"</q-l>
+<a name="150"><q-n>     150  </q-n></a>
+<a name="151"><q-n>     151  </q-n></a><q-m>// ---------------------------------------------------------</q-m>
+<a name="152"><q-n>     152  </q-n></a><q-m>// 7. Random / Stress Tests</q-m>
+<a name="153"><q-n>     153  </q-n></a><q-m>// ---------------------------------------------------------</q-m>
+<a name="154"><q-n>     154  </q-n></a>`<q-i>include</q-w> <q-l>"apb_random_addr_data_mixed_seq.sv"</q-l>
+<a name="155"><q-n>     155  </q-n></a>`<q-i>include</q-w> <q-l>"apb_random_addr_data_mixed_test.sv"</q-l>
+<a name="156"><q-n>     156  </q-n></a>
+<a name="157"><q-n>     157  </q-n></a>`<q-i>include</q-w> <q-l>"apb_random_back_to_back_burst_seq.sv"</q-l>
+<a name="158"><q-n>     158  </q-n></a>`<q-i>include</q-w> <q-l>"apb_random_back_to_back_burst_test.sv"</q-l>
+<a name="159"><q-n>     159  </q-n></a>
+<a name="160"><q-n>     160  </q-n></a>`<q-i>include</q-w> <q-l>"apb_random_with_idle_gaps_seq.sv"</q-l>
+<a name="161"><q-n>     161  </q-n></a>`<q-i>include</q-w> <q-l>"apb_random_with_idle_gaps_test.sv"</q-l>
+<a name="162"><q-n>     162  </q-n></a>
+<a name="163"><q-n>     163  </q-n></a>`<q-i>include</q-w> <q-l>"apb_full_regression_soak_seq.sv"</q-l>
+<a name="164"><q-n>     164  </q-n></a>`<q-i>include</q-w> <q-l>"apb_full_regression_soak_test.sv"</q-l> 
+<a name="165"><q-n>     165  </q-n></a><q-w>endpackage</q-w>
+</pre>
+</tt>
+
+  
+</body>
+</html>

@@ -1,0 +1,304 @@
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+  <title>Questa Coverage Report</title>
+  <link rel="StyleSheet" media="screen" href="../css/hdl2html.css"/>
+</head>
+<body id="hdl2html">
+  <tt>
+<pre>
+<a name="1"><q-n>     1  </q-n></a><q-m>//----------------------------------------------------------------------</q-m>
+<a name="2"><q-n>     2  </q-n></a><q-m>//   Copyright 2013 Cadence Design Systems, Inc. </q-m>
+<a name="3"><q-n>     3  </q-n></a><q-m>//   All Rights Reserved Worldwide</q-m>
+<a name="4"><q-n>     4  </q-n></a><q-m>//</q-m>
+<a name="5"><q-n>     5  </q-n></a><q-m>//   Licensed under the Apache License, Version 2.0 (the</q-m>
+<a name="6"><q-n>     6  </q-n></a><q-m>//   "License"); you may not use this file except in</q-m>
+<a name="7"><q-n>     7  </q-n></a><q-m>//   compliance with the License.  You may obtain a copy of</q-m>
+<a name="8"><q-n>     8  </q-n></a><q-m>//   the License at</q-m>
+<a name="9"><q-n>     9  </q-n></a><q-m>//</q-m>
+<a name="10"><q-n>     10  </q-n></a><q-m>//       http://www.apache.org/licenses/LICENSE-2.0</q-m>
+<a name="11"><q-n>     11  </q-n></a><q-m>//</q-m>
+<a name="12"><q-n>     12  </q-n></a><q-m>//   Unless required by applicable law or agreed to in</q-m>
+<a name="13"><q-n>     13  </q-n></a><q-m>//   writing, software distributed under the License is</q-m>
+<a name="14"><q-n>     14  </q-n></a><q-m>//   distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR</q-m>
+<a name="15"><q-n>     15  </q-n></a><q-m>//   CONDITIONS OF ANY KIND, either express or implied.  See</q-m>
+<a name="16"><q-n>     16  </q-n></a><q-m>//   the License for the specific language governing</q-m>
+<a name="17"><q-n>     17  </q-n></a><q-m>//   permissions and limitations under the License.</q-m>
+<a name="18"><q-n>     18  </q-n></a><q-m>//----------------------------------------------------------------------</q-m>
+<a name="19"><q-n>     19  </q-n></a>
+<a name="20"><q-n>     20  </q-n></a><q-m>//------------------------------------------------------------------------------</q-m>
+<a name="21"><q-n>     21  </q-n></a><q-m>//</q-m>
+<a name="22"><q-n>     22  </q-n></a><q-m>// CLASS: uvm_visitor #(NODE)</q-m>
+<a name="23"><q-n>     23  </q-n></a><q-m>//</q-m>
+<a name="24"><q-n>     24  </q-n></a><q-m>// The uvm_visitor class provides an abstract base class for a visitor. The visitor </q-m>
+<a name="25"><q-n>     25  </q-n></a><q-m>// visits instances of type NODE. For general information regarding the visitor pattern</q-m>
+<a name="26"><q-n>     26  </q-n></a><q-m>// see http://en.wikipedia.org/wiki/Visitor_pattern</q-m>
+<a name="27"><q-n>     27  </q-n></a><q-m>// </q-m>
+<a name="28"><q-n>     28  </q-n></a><q-m>//------------------------------------------------------------------------------</q-m>
+<a name="29"><q-n>     29  </q-n></a>
+<a name="30"><q-n>     30  </q-n></a><q-w>virtual</q-w> <q-w>class</q-w> uvm_visitor#(<q-w>type</q-w> NODE=uvm_component) <q-w>extends</q-w> uvm_object;
+<a name="31"><q-n>     31  </q-n></a>	<q-w>function</q-w> <q-w>new</q-w> (<q-w>string</q-w> name = <q-l>""</q-l>);
+<a name="32"><q-n>     32  </q-n></a>		<q-w>super</q-w>.<q-w>new</q-w>(name);
+<a name="33"><q-n>     33  </q-n></a>	<q-w>endfunction</q-w> 
+<a name="34"><q-n>     34  </q-n></a>	<q-m>// Function: begin_v</q-m>
+<a name="35"><q-n>     35  </q-n></a>  	<q-m>//</q-m>
+<a name="36"><q-n>     36  </q-n></a>  	<q-m>// This method will be invoked by the visitor before the first NODE is visited</q-m>
+<a name="37"><q-n>     37  </q-n></a>	
+<a name="38"><q-n>     38  </q-n></a>	<q-w>virtual</q-w> <q-w>function</q-w> <q-w>void</q-w> begin_v(); <q-w>endfunction</q-w>
+<a name="39"><q-n>     39  </q-n></a>	
+<a name="40"><q-n>     40  </q-n></a>	<q-m>// Function: end_v</q-m>
+<a name="41"><q-n>     41  </q-n></a>  	<q-m>//</q-m>
+<a name="42"><q-n>     42  </q-n></a>  	<q-m>// This method will be invoked by the visitor after the last NODE is visited</q-m>
+<a name="43"><q-n>     43  </q-n></a>		
+<a name="44"><q-n>     44  </q-n></a>	<q-w>virtual</q-w> <q-w>function</q-w> <q-w>void</q-w> end_v(); <q-w>endfunction</q-w>
+<a name="45"><q-n>     45  </q-n></a>
+<a name="46"><q-n>     46  </q-n></a>	<q-m>// Function: visit</q-m>
+<a name="47"><q-n>     47  </q-n></a>  	<q-m>//</q-m>
+<a name="48"><q-n>     48  </q-n></a>  	<q-m>// This method will be invoked by the visitor for every visited ~node~ of the provided structure.</q-m>
+<a name="49"><q-n>     49  </q-n></a>  	<q-m>// The user is expected to provide the own functionality in this function.</q-m>
+<a name="50"><q-n>     50  </q-n></a>  	<q-m>//</q-m>
+<a name="51"><q-n>     51  </q-n></a>  	<q-m>//| class count_nodes_visitor#(type T=uvm_component) extends uvm_visitor#(T); </q-m>
+<a name="52"><q-n>     52  </q-n></a>  	<q-m>//| 	function new (string name = "");</q-m>
+<a name="53"><q-n>     53  </q-n></a>	<q-m>//|	       super.new(name);</q-m>
+<a name="54"><q-n>     54  </q-n></a>	<q-m>//|     endfunction </q-m>
+<a name="55"><q-n>     55  </q-n></a>	<q-m>//| 	local int cnt;</q-m>
+<a name="56"><q-n>     56  </q-n></a>	<q-m>//|     virtual function void begin_v(); cnt = 0; endfunction</q-m>
+<a name="57"><q-n>     57  </q-n></a>	<q-m>//| 	virtual function void end_v(); `uvm_info("TEXT",$sformatf("%d elements",cnt),UVM_NONE) endfunction</q-m>
+<a name="58"><q-n>     58  </q-n></a>	<q-m>//| 	virtual function void visit(T node); cnt++; endfunction</q-m>
+<a name="59"><q-n>     59  </q-n></a>	<q-m>//|	endclass</q-m>
+<a name="60"><q-n>     60  </q-n></a>	<q-w>pure</q-w> <q-w>virtual</q-w> <q-w>function</q-w> <q-w>void</q-w> visit(NODE node);
+<a name="61"><q-n>     61  </q-n></a><q-w>endclass</q-w>
+<a name="62"><q-n>     62  </q-n></a>
+<a name="63"><q-n>     63  </q-n></a><q-m>//------------------------------------------------------------------------------</q-m>
+<a name="64"><q-n>     64  </q-n></a><q-m>//</q-m>
+<a name="65"><q-n>     65  </q-n></a><q-m>// CLASS: uvm_structure_proxy #(STRUCTURE)</q-m>
+<a name="66"><q-n>     66  </q-n></a><q-m>//</q-m>
+<a name="67"><q-n>     67  </q-n></a><q-m>// The uvm_structure_proxy is a wrapper and provides a set of elements </q-m>
+<a name="68"><q-n>     68  </q-n></a><q-m>// of the STRUCTURE to the caller on demand. This is to decouple the retrieval of </q-m>
+<a name="69"><q-n>     69  </q-n></a><q-m>// the STRUCTUREs subelements from the actual function being invoked on STRUCTURE</q-m>
+<a name="70"><q-n>     70  </q-n></a><q-m>// </q-m>
+<a name="71"><q-n>     71  </q-n></a><q-m>//------------------------------------------------------------------------------</q-m>
+<a name="72"><q-n>     72  </q-n></a>
+<a name="73"><q-n>     73  </q-n></a><q-w>virtual</q-w> <q-w>class</q-w> uvm_structure_proxy#(<q-w>type</q-w> STRUCTURE=uvm_component) <q-w>extends</q-w> uvm_object;
+<a name="74"><q-n>     74  </q-n></a>	<q-w>function</q-w> <q-w>new</q-w> (<q-w>string</q-w> name = <q-l>""</q-l>);
+<a name="75"><q-n>     75  </q-n></a>		<q-w>super</q-w>.<q-w>new</q-w>(name);
+<a name="76"><q-n>     76  </q-n></a>	<q-w>endfunction</q-w>     
+<a name="77"><q-n>     77  </q-n></a>	<q-m>// Function: get_immediate_children</q-m>
+<a name="78"><q-n>     78  </q-n></a>  	<q-m>//</q-m>
+<a name="79"><q-n>     79  </q-n></a>  	<q-m>// This method will be return in ~children~ a set of the direct subelements of ~s~</q-m>
+<a name="80"><q-n>     80  </q-n></a>		
+<a name="81"><q-n>     81  </q-n></a>	<q-w>pure</q-w> <q-w>virtual</q-w> <q-w>function</q-w> <q-w>void</q-w> get_immediate_children(STRUCTURE s, <q-w>ref</q-w> STRUCTURE children[$]);
+<a name="82"><q-n>     82  </q-n></a><q-w>endclass</q-w>    
+<a name="83"><q-n>     83  </q-n></a>
+<a name="84"><q-n>     84  </q-n></a><q-m>//------------------------------------------------------------------------------</q-m>
+<a name="85"><q-n>     85  </q-n></a><q-m>//</q-m>
+<a name="86"><q-n>     86  </q-n></a><q-m>// CLASS: uvm_visitor_adapter #(STRUCTURE,uvm_visitor#(STRUCTURE))</q-m>
+<a name="87"><q-n>     87  </q-n></a><q-m>//</q-m>
+<a name="88"><q-n>     88  </q-n></a><q-m>// The visitor adaptor traverses all nodes of the STRUCTURE and will invoke visitor.visit() on every node.</q-m>
+<a name="89"><q-n>     89  </q-n></a><q-m>// </q-m>
+<a name="90"><q-n>     90  </q-n></a><q-m>//------------------------------------------------------------------------------</q-m>
+<a name="91"><q-n>     91  </q-n></a>
+<a name="92"><q-n>     92  </q-n></a><q-w>virtual</q-w> <q-w>class</q-w> uvm_visitor_adapter#(<q-w>type</q-w> STRUCTURE=uvm_component,VISITOR=uvm_visitor#(STRUCTURE)) <q-w>extends</q-w> uvm_object;
+<a name="93"><q-n>     93  </q-n></a>	<q-m>// Function: accept()</q-m>
+<a name="94"><q-n>     94  </q-n></a>  	<q-m>//</q-m>
+<a name="95"><q-n>     95  </q-n></a>  	<q-m>// Calling this function will traverse through ~s~ (and every subnode of ~s~). For each node found </q-m>
+<a name="96"><q-n>     96  </q-n></a>  	<q-m>// ~v~.visit(node) will be invoked. The children of ~s~ are recursively determined </q-m>
+<a name="97"><q-n>     97  </q-n></a>  	<q-m>// by invoking ~p~.get_immediate_children().~invoke_begin_end~ determines whether the visitors begin/end functions </q-m>
+<a name="98"><q-n>     98  </q-n></a>  	<q-m>// should be invoked prior to traversal.</q-m>
+<a name="99"><q-n>     99  </q-n></a>	
+<a name="100"><q-n>     100  </q-n></a>	<q-w>pure</q-w> <q-w>virtual</q-w> <q-w>function</q-w> <q-w>void</q-w> accept(STRUCTURE s, VISITOR v,uvm_structure_proxy#(STRUCTURE) p, <q-w>bit</q-w> invoke_begin_end=1);
+<a name="101"><q-n>     101  </q-n></a>	<q-w>function</q-w> <q-w>new</q-w> (<q-w>string</q-w> name = <q-l>""</q-l>);
+<a name="102"><q-n>     102  </q-n></a>		<q-w>super</q-w>.<q-w>new</q-w>(name);
+<a name="103"><q-n>     103  </q-n></a>	<q-w>endfunction</q-w> 
+<a name="104"><q-n>     104  </q-n></a><q-w>endclass</q-w>
+<a name="105"><q-n>     105  </q-n></a>
+<a name="106"><q-n>     106  </q-n></a><q-m>//------------------------------------------------------------------------------</q-m>
+<a name="107"><q-n>     107  </q-n></a><q-m>//</q-m>
+<a name="108"><q-n>     108  </q-n></a><q-m>// CLASS: uvm_top_down_visitor_adapter</q-m>
+<a name="109"><q-n>     109  </q-n></a><q-m>//</q-m>
+<a name="110"><q-n>     110  </q-n></a><q-m>// This uvm_top_down_visitor_adapter traverses the STRUCTURE ~s~ (and will invoke the visitor) in a hierarchical fashion.</q-m>
+<a name="111"><q-n>     111  </q-n></a><q-m>// During traversal ~s~ will be visited before all subnodes of ~s~ will be visited.</q-m>
+<a name="112"><q-n>     112  </q-n></a><q-m>// </q-m>
+<a name="113"><q-n>     113  </q-n></a><q-m>//------------------------------------------------------------------------------</q-m>
+<a name="114"><q-n>     114  </q-n></a>
+<a name="115"><q-n>     115  </q-n></a><q-w>class</q-w> uvm_top_down_visitor_adapter#(<q-w>type</q-w> STRUCTURE=uvm_component,VISITOR=uvm_visitor#(STRUCTURE)) <q-w>extends</q-w> 
+<a name="116"><q-n>     116  </q-n></a>	uvm_visitor_adapter#(STRUCTURE,VISITOR);
+<a name="117"><q-n>     117  </q-n></a>	<q-w>function</q-w> <q-w>new</q-w> (<q-w>string</q-w> name = <q-l>""</q-l>);
+<a name="118"><q-n>     118  </q-n></a>		<q-w>super</q-w>.<q-w>new</q-w>(name);
+<a name="119"><q-n>     119  </q-n></a>	<q-w>endfunction</q-w>         
+<a name="120"><q-n>     120  </q-n></a>	<q-w>virtual</q-w> <q-w>function</q-w> <q-w>void</q-w> accept(STRUCTURE s, VISITOR v,uvm_structure_proxy#(STRUCTURE) p, <q-w>bit</q-w> invoke_begin_end=1);
+<a name="121"><q-n>     121  </q-n></a>		STRUCTURE c[$];
+<a name="122"><q-n>     122  </q-n></a>
+<a name="123"><q-n>     123  </q-n></a>		<q-w>if</q-w>(invoke_begin_end)
+<a name="124"><q-n>     124  </q-n></a>			v.begin_v();
+<a name="125"><q-n>     125  </q-n></a>
+<a name="126"><q-n>     126  </q-n></a>		v.visit(s);
+<a name="127"><q-n>     127  </q-n></a>		p.get_immediate_children(s, c);
+<a name="128"><q-n>     128  </q-n></a>
+<a name="129"><q-n>     129  </q-n></a>		<q-w>foreach</q-w>(c[idx])
+<a name="130"><q-n>     130  </q-n></a>			accept(c[idx],v,p,0);
+<a name="131"><q-n>     131  </q-n></a>
+<a name="132"><q-n>     132  </q-n></a>		<q-w>if</q-w>(invoke_begin_end)
+<a name="133"><q-n>     133  </q-n></a>			v.end_v();
+<a name="134"><q-n>     134  </q-n></a>
+<a name="135"><q-n>     135  </q-n></a>	<q-w>endfunction</q-w>
+<a name="136"><q-n>     136  </q-n></a><q-w>endclass</q-w>
+<a name="137"><q-n>     137  </q-n></a>
+<a name="138"><q-n>     138  </q-n></a><q-m>//------------------------------------------------------------------------------</q-m>
+<a name="139"><q-n>     139  </q-n></a><q-m>//</q-m>
+<a name="140"><q-n>     140  </q-n></a><q-m>// CLASS: uvm_bottom_up_visitor_adapter</q-m>
+<a name="141"><q-n>     141  </q-n></a><q-m>//</q-m>
+<a name="142"><q-n>     142  </q-n></a><q-m>// This uvm_bottom_up_visitor_adapter traverses the STRUCTURE ~s~ (and will invoke the visitor) in a hierarchical fashion.</q-m>
+<a name="143"><q-n>     143  </q-n></a><q-m>// During traversal all children of node ~s~ will be visited ~s~ will be visited.</q-m>
+<a name="144"><q-n>     144  </q-n></a><q-m>// </q-m>
+<a name="145"><q-n>     145  </q-n></a><q-m>//------------------------------------------------------------------------------</q-m>
+<a name="146"><q-n>     146  </q-n></a>
+<a name="147"><q-n>     147  </q-n></a><q-w>class</q-w> uvm_bottom_up_visitor_adapter#(<q-w>type</q-w> STRUCTURE=uvm_component,VISITOR=uvm_visitor#(STRUCTURE)) <q-w>extends</q-w> 
+<a name="148"><q-n>     148  </q-n></a>	uvm_visitor_adapter#(STRUCTURE,VISITOR);
+<a name="149"><q-n>     149  </q-n></a>	<q-w>function</q-w> <q-w>new</q-w> (<q-w>string</q-w> name = <q-l>""</q-l>);
+<a name="150"><q-n>     150  </q-n></a>		<q-w>super</q-w>.<q-w>new</q-w>(name);
+<a name="151"><q-n>     151  </q-n></a>	<q-w>endfunction</q-w>         
+<a name="152"><q-n>     152  </q-n></a>	<q-w>virtual</q-w> <q-w>function</q-w> <q-w>void</q-w> accept(STRUCTURE s, VISITOR v,uvm_structure_proxy#(STRUCTURE) p, <q-w>bit</q-w> invoke_begin_end=1);
+<a name="153"><q-n>     153  </q-n></a>		STRUCTURE c[$];
+<a name="154"><q-n>     154  </q-n></a>
+<a name="155"><q-n>     155  </q-n></a>		<q-w>if</q-w>(invoke_begin_end)
+<a name="156"><q-n>     156  </q-n></a>			v.begin_v();
+<a name="157"><q-n>     157  </q-n></a>
+<a name="158"><q-n>     158  </q-n></a>		p.get_immediate_children(s, c);
+<a name="159"><q-n>     159  </q-n></a>		<q-w>foreach</q-w>(c[idx])
+<a name="160"><q-n>     160  </q-n></a>			accept(c[idx],v,p,0);
+<a name="161"><q-n>     161  </q-n></a>
+<a name="162"><q-n>     162  </q-n></a>		v.visit(s);
+<a name="163"><q-n>     163  </q-n></a>
+<a name="164"><q-n>     164  </q-n></a>		<q-w>if</q-w>(invoke_begin_end)
+<a name="165"><q-n>     165  </q-n></a>			v.end_v();
+<a name="166"><q-n>     166  </q-n></a>
+<a name="167"><q-n>     167  </q-n></a>	<q-w>endfunction</q-w>
+<a name="168"><q-n>     168  </q-n></a><q-w>endclass</q-w>
+<a name="169"><q-n>     169  </q-n></a>
+<a name="170"><q-n>     170  </q-n></a><q-m>//------------------------------------------------------------------------------</q-m>
+<a name="171"><q-n>     171  </q-n></a><q-m>//</q-m>
+<a name="172"><q-n>     172  </q-n></a><q-m>// CLASS: uvm_by_level_visitor_adapter</q-m>
+<a name="173"><q-n>     173  </q-n></a><q-m>//</q-m>
+<a name="174"><q-n>     174  </q-n></a><q-m>// This uvm_by_level_visitor_adapter traverses the STRUCTURE ~s~ (and will invoke the visitor) in a hierarchical fashion.</q-m>
+<a name="175"><q-n>     175  </q-n></a><q-m>// During traversal will visit all direct children of ~s~ before all grand-children are visited. </q-m>
+<a name="176"><q-n>     176  </q-n></a><q-m>//------------------------------------------------------------------------------</q-m>
+<a name="177"><q-n>     177  </q-n></a>
+<a name="178"><q-n>     178  </q-n></a><q-w>class</q-w> uvm_by_level_visitor_adapter#(<q-w>type</q-w> STRUCTURE=uvm_component,VISITOR=uvm_visitor#(STRUCTURE)) <q-w>extends</q-w> 
+<a name="179"><q-n>     179  </q-n></a>	uvm_visitor_adapter#(STRUCTURE,VISITOR);
+<a name="180"><q-n>     180  </q-n></a>	<q-w>function</q-w> <q-w>new</q-w> (<q-w>string</q-w> name = <q-l>""</q-l>);
+<a name="181"><q-n>     181  </q-n></a>		<q-w>super</q-w>.<q-w>new</q-w>(name);
+<a name="182"><q-n>     182  </q-n></a>	<q-w>endfunction</q-w>         
+<a name="183"><q-n>     183  </q-n></a>	<q-w>virtual</q-w> <q-w>function</q-w> <q-w>void</q-w> accept(STRUCTURE s, VISITOR v,uvm_structure_proxy#(STRUCTURE) p, <q-w>bit</q-w> invoke_begin_end=1);
+<a name="184"><q-n>     184  </q-n></a>		STRUCTURE c[$];
+<a name="185"><q-n>     185  </q-n></a>		c.push_back(s);
+<a name="186"><q-n>     186  </q-n></a>
+<a name="187"><q-n>     187  </q-n></a>		<q-w>if</q-w>(invoke_begin_end)
+<a name="188"><q-n>     188  </q-n></a>			v.begin_v();
+<a name="189"><q-n>     189  </q-n></a>
+<a name="190"><q-n>     190  </q-n></a>		<q-w>while</q-w>(c.size() &gt; 0) <q-w>begin</q-w>
+<a name="191"><q-n>     191  </q-n></a>			STRUCTURE q[$];
+<a name="192"><q-n>     192  </q-n></a>			<q-w>foreach</q-w>(c[idx]) <q-w>begin</q-w>
+<a name="193"><q-n>     193  </q-n></a>				STRUCTURE t[$]; 
+<a name="194"><q-n>     194  </q-n></a>
+<a name="195"><q-n>     195  </q-n></a>				v.visit(c[idx]);
+<a name="196"><q-n>     196  </q-n></a>				p.get_immediate_children(c[idx], t);
+<a name="197"><q-n>     197  </q-n></a>				q = {q,t};
+<a name="198"><q-n>     198  </q-n></a>			<q-w>end</q-w> 
+<a name="199"><q-n>     199  </q-n></a>			c=q;
+<a name="200"><q-n>     200  </q-n></a>		<q-w>end</q-w> 
+<a name="201"><q-n>     201  </q-n></a>
+<a name="202"><q-n>     202  </q-n></a>		<q-w>if</q-w>(invoke_begin_end)
+<a name="203"><q-n>     203  </q-n></a>			v.end_v();
+<a name="204"><q-n>     204  </q-n></a>	<q-w>endfunction</q-w>
+<a name="205"><q-n>     205  </q-n></a><q-w>endclass</q-w>
+<a name="206"><q-n>     206  </q-n></a>
+<a name="207"><q-n>     207  </q-n></a><q-m>//------------------------------------------------------------------------------</q-m>
+<a name="208"><q-n>     208  </q-n></a><q-m>//</q-m>
+<a name="209"><q-n>     209  </q-n></a><q-m>// CLASS: uvm_component_proxy</q-m>
+<a name="210"><q-n>     210  </q-n></a><q-m>//</q-m>
+<a name="211"><q-n>     211  </q-n></a><q-m>// The class is providing the proxy to extract the direct subcomponents of ~s~ </q-m>
+<a name="212"><q-n>     212  </q-n></a><q-m>//------------------------------------------------------------------------------</q-m>
+<a name="213"><q-n>     213  </q-n></a>
+<a name="214"><q-n>     214  </q-n></a><q-w>class</q-w> uvm_component_proxy <q-w>extends</q-w> uvm_structure_proxy#(uvm_component);
+<a name="215"><q-n>     215  </q-n></a>	<q-w>virtual</q-w> <q-w>function</q-w> <q-w>void</q-w> get_immediate_children(STRUCTURE s, <q-w>ref</q-w> STRUCTURE children[$]);   
+<a name="216"><q-n>     216  </q-n></a>		s.get_children(children);   
+<a name="217"><q-n>     217  </q-n></a>	<q-w>endfunction</q-w>
+<a name="218"><q-n>     218  </q-n></a>
+<a name="219"><q-n>     219  </q-n></a>	<q-w>function</q-w> <q-w>new</q-w> (<q-w>string</q-w> name = <q-l>""</q-l>);
+<a name="220"><q-n>     220  </q-n></a>		<q-w>super</q-w>.<q-w>new</q-w>(name);
+<a name="221"><q-n>     221  </q-n></a>	<q-w>endfunction</q-w> 
+<a name="222"><q-n>     222  </q-n></a><q-w>endclass</q-w>
+<a name="223"><q-n>     223  </q-n></a>
+<a name="224"><q-n>     224  </q-n></a>
+<a name="225"><q-n>     225  </q-n></a><q-m>//------------------------------------------------------------------------------</q-m>
+<a name="226"><q-n>     226  </q-n></a><q-m>//</q-m>
+<a name="227"><q-n>     227  </q-n></a><q-m>// CLASS: uvm_component_name_check_visitor </q-m>
+<a name="228"><q-n>     228  </q-n></a><q-m>//</q-m>
+<a name="229"><q-n>     229  </q-n></a><q-m>// This specialized visitor analyze the naming of the current component. The established rule set</q-m>
+<a name="230"><q-n>     230  </q-n></a><q-m>// ensures that a component.get_full_name() is parsable, unique, printable to order to avoid any ambiguities </q-m>
+<a name="231"><q-n>     231  </q-n></a><q-m>// when messages are being emitted.</q-m>
+<a name="232"><q-n>     232  </q-n></a><q-m>// </q-m>
+<a name="233"><q-n>     233  </q-n></a><q-m>// ruleset a legal name is composed of</q-m>
+<a name="234"><q-n>     234  </q-n></a><q-m>// - allowed charset "A-z:_0-9[](){}-: "</q-m>
+<a name="235"><q-n>     235  </q-n></a><q-m>// - whitespace-as-is, no-balancing delimiter semantic, no escape sequences</q-m>
+<a name="236"><q-n>     236  </q-n></a><q-m>// - path delimiter not allowed anywhere in the name</q-m>
+<a name="237"><q-n>     237  </q-n></a><q-m>//   </q-m>
+<a name="238"><q-n>     238  </q-n></a><q-m>// the check is coded here as a function to complete it in a single function call</q-m>
+<a name="239"><q-n>     239  </q-n></a><q-m>// otherwise save/restore issues with the used dpi could occur</q-m>
+<a name="240"><q-n>     240  </q-n></a><q-m>//------------------------------------------------------------------------------</q-m>
+<a name="241"><q-n>     241  </q-n></a>
+<a name="242"><q-n>     242  </q-n></a>  
+<a name="243"><q-n>     243  </q-n></a><q-w>class</q-w> uvm_component_name_check_visitor <q-w>extends</q-w> uvm_visitor#(uvm_component);
+<a name="244"><q-n>     244  </q-n></a>	<q-w>local</q-w> uvm_root _root;
+<a name="245"><q-n>     245  </q-n></a>
+<a name="246"><q-n>     246  </q-n></a>	<q-m>// Function: get_name_constraint</q-m>
+<a name="247"><q-n>     247  </q-n></a>  	<q-m>//</q-m>
+<a name="248"><q-n>     248  </q-n></a>  	<q-m>// This method should return a regex for what is being considered a valid/good component name.</q-m>
+<a name="249"><q-n>     249  </q-n></a>  	<q-m>// The visitor will check all component names using this regex and report failing names</q-m>
+<a name="250"><q-n>     250  </q-n></a>		
+<a name="251"><q-n>     251  </q-n></a>	<q-w>virtual</q-w> <q-w>function</q-w> <q-w>string</q-w> get_name_constraint();
+<a name="252"><q-n>     252  </q-n></a>		<q-w>return</q-w> <q-l>"^[][[:alnum:](){}_:-]([][[:alnum:](){} _:-]*[][[:alnum:](){}_:-])?$"</q-l>;
+<a name="253"><q-n>     253  </q-n></a>	<q-w>endfunction</q-w>
+<a name="254"><q-n>     254  </q-n></a>
+<a name="255"><q-n>     255  </q-n></a>	<q-w>virtual</q-w> <q-w>function</q-w> <q-w>void</q-w> visit(NODE node);
+<a name="256"><q-n>     256  </q-n></a>`ifndef UVM_NO_DPI
+<a name="257"><q-n>     257  </q-n></a>		<q-w>static</q-w> <q-w>chandle</q-w> compiled_regex;
+<a name="258"><q-n>     258  </q-n></a>		
+<a name="259"><q-n>     259  </q-n></a>		<q-w>if</q-w>(compiled_regex==<q-w>null</q-w>)
+<a name="260"><q-n>     260  </q-n></a>			compiled_regex=uvm_dpi_regcomp(get_name_constraint());  
+<a name="261"><q-n>     261  </q-n></a>		
+<a name="262"><q-n>     262  </q-n></a>		<q-w>assert</q-w>(compiled_regex!=<q-w>null</q-w>);
+<a name="263"><q-n>     263  </q-n></a>		
+<a name="264"><q-n>     264  </q-n></a>		<q-m>// dont check the root component</q-m>
+<a name="265"><q-n>     265  </q-n></a>		<q-w>if</q-w>(_root != node)
+<a name="266"><q-n>     266  </q-n></a>			<q-w>if</q-w>(uvm_dpi_regexec(compiled_regex, node.get_name())) 
+<a name="267"><q-n>     267  </q-n></a>				`uvm_warning(<q-l>"UVM/COMP/NAME"</q-l>,$sformatf(<q-l>"the name \"%s\" of the component \"%s\" violates the uvm component name constraints"</q-l>,node.get_name(),node.get_full_name()))
+<a name="268"><q-n>     268  </q-n></a>`<q-a>endif</q-w>
+<a name="269"><q-n>     269  </q-n></a>	<q-w>endfunction</q-w> 
+<a name="270"><q-n>     270  </q-n></a>	<q-w>function</q-w> <q-w>new</q-w> (<q-w>string</q-w> name = <q-l>""</q-l>);
+<a name="271"><q-n>     271  </q-n></a>		<q-w>super</q-w>.<q-w>new</q-w>(name);
+<a name="272"><q-n>     272  </q-n></a>	<q-w>endfunction</q-w> 
+<a name="273"><q-n>     273  </q-n></a>
+<a name="274"><q-n>     274  </q-n></a>	<q-w>virtual</q-w> <q-w>function</q-w> <q-w>void</q-w> begin_v(); 
+<a name="275"><q-n>     275  </q-n></a>		uvm_coreservice_t cs = uvm_coreservice_t::get();
+<a name="276"><q-n>     276  </q-n></a>   
+<a name="277"><q-n>     277  </q-n></a>		_root =  cs.get_root();
+<a name="278"><q-n>     278  </q-n></a>`<q-a>ifdef</q-w> UVM_NO_DPI
+<a name="279"><q-n>     279  </q-n></a>		`uvm_info(<q-l>"UVM/COMP/NAMECHECK"</q-l>,<q-l>"This implementation of the component name checks requires DPI to be enabled"</q-l>,UVM_NONE)
+<a name="280"><q-n>     280  </q-n></a>`<q-a>endif</q-w>
+<a name="281"><q-n>     281  </q-n></a>	<q-w>endfunction</q-w>
+<a name="282"><q-n>     282  </q-n></a>	<q-w>virtual</q-w> <q-w>function</q-w> <q-w>void</q-w> end_v(); 
+<a name="283"><q-n>     283  </q-n></a>`ifndef UVM_NO_DPI
+<a name="284"><q-n>     284  </q-n></a>		uvm_dpi_regfree(visit.compiled_regex);
+<a name="285"><q-n>     285  </q-n></a>		visit.compiled_regex=<q-w>null</q-w>;  
+<a name="286"><q-n>     286  </q-n></a>`<q-a>endif</q-w>
+<a name="287"><q-n>     287  </q-n></a>	<q-w>endfunction</q-w>
+<a name="288"><q-n>     288  </q-n></a><q-w>endclass</q-w>    
+</pre>
+</tt>
+
+  
+</body>
+</html>

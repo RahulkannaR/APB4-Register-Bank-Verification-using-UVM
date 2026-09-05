@@ -1,0 +1,12 @@
+var g_data = {
+d14:{directives:[{dummy:0}
+,{cr:'c',lnk:'__HDL_srcfile_6.htm#46',z:'cover_consecutive_transfer',h:'1',c:'g'}
+],
+scopes:[{link:'z.htm?f=0&s=14',val:'work.apb_protocol_checker'}]},
+d66:{directives:[{dummy:0}
+,{cr:'c',lnk:'__HDL_srcfile_6.htm#46',z:'cover_consecutive_transfer',h:'1',c:'g'}
+],
+scopes:[{s:'15',b:'1',val:'tb_top'},{link:'z.htm?f=0&s=66',val:'u_protocol_checker'}]},
+dummyEnd:0
+};
+processDirectivesData(g_data,1);

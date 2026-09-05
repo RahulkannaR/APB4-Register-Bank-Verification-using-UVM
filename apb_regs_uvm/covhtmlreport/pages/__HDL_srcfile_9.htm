@@ -1,0 +1,86 @@
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+  <title>Questa Coverage Report</title>
+  <link rel="StyleSheet" media="screen" href="../css/hdl2html.css"/>
+</head>
+<body id="hdl2html">
+  <tt>
+<pre>
+<a name="1"><q-n>     1  </q-n></a><q-m>//-----------------------------------------------------------------------------</q-m>
+<a name="2"><q-n>     2  </q-n></a><q-m>// apb_coverage.sv</q-m>
+<a name="3"><q-n>     3  </q-n></a><q-m>// Functional coverage: register index, R/W type, PSLVERR, RO-vs-RW cross.</q-m>
+<a name="4"><q-n>     4  </q-n></a><q-m>// &gt;&gt;&gt; NUM_REGS / READ_ONLY_MASK must match apb_reg_block.</q-m>
+<a name="5"><q-n>     5  </q-n></a><q-m>//-----------------------------------------------------------------------------</q-m>
+<a name="6"><q-n>     6  </q-n></a>`uvm_analysis_imp_decl(_cov)
+<a name="7"><q-n>     7  </q-n></a>
+<a name="8"><q-n>     8  </q-n></a><q-w>class</q-w> apb_coverage <q-w>extends</q-w> uvm_component;
+<a name="9"><q-n>     9  </q-n></a>
+<a name="10"><q-n>     10  </q-n></a>  `uvm_component_utils(apb_coverage)
+<a name="11"><q-n>     11  </q-n></a>
+<a name="12"><q-n>     12  </q-n></a>  uvm_analysis_imp_cov #(apb_seq_item, apb_coverage) cov_imp;
+<a name="13"><q-n>     13  </q-n></a>
+<a name="14"><q-n>     14  </q-n></a>  <q-w>localparam</q-w> <q-w>int</q-w> NUM_REGS      = 8;
+<a name="15"><q-n>     15  </q-n></a>  <q-w>localparam</q-w> <q-w>int</q-w> ADDR_OFFSET   = 4;
+<a name="16"><q-n>     16  </q-n></a>  <q-w>localparam</q-w> <q-w>bit</q-w> [NUM_REGS-1:0] READ_ONLY_MASK = 8'b0000_0001;
+<a name="17"><q-n>     17  </q-n></a>
+<a name="18"><q-n>     18  </q-n></a>  apb_seq_item tr_cov;
+<a name="19"><q-n>     19  </q-n></a>  <q-w>int</q-w>          reg_idx;
+<a name="20"><q-n>     20  </q-n></a>  <q-w>bit</q-w>          is_ro;
+<a name="21"><q-n>     21  </q-n></a>
+<a name="22"><q-n>     22  </q-n></a>  <q-w>covergroup</q-w> cg_apb;
+<a name="23"><q-n>     23  </q-n></a>    option.per_instance = 1;
+<a name="24"><q-n>     24  </q-n></a>
+<a name="25"><q-n>     25  </q-n></a>    cp_reg_idx : <q-w>coverpoint</q-w> reg_idx {
+<a name="26"><q-n>     26  </q-n></a>      <q-w>bins</q-w> valid_idx[] = {[0:NUM_REGS-1]};
+<a name="27"><q-n>     27  </q-n></a>      <q-w>bins</q-w> out_of_range = {[NUM_REGS:$]};
+<a name="28"><q-n>     28  </q-n></a>    }
+<a name="29"><q-n>     29  </q-n></a>
+<a name="30"><q-n>     30  </q-n></a>    cp_rw : <q-w>coverpoint</q-w> tr_cov.pwrite {
+<a name="31"><q-n>     31  </q-n></a>      <q-w>bins</q-w> write = {1};
+<a name="32"><q-n>     32  </q-n></a>      <q-w>bins</q-w> read  = {0};
+<a name="33"><q-n>     33  </q-n></a>    }
+<a name="34"><q-n>     34  </q-n></a>
+<a name="35"><q-n>     35  </q-n></a>    cp_pslverr : <q-w>coverpoint</q-w> tr_cov.pslverr {
+<a name="36"><q-n>     36  </q-n></a>      <q-w>bins</q-w> ok    = {0};
+<a name="37"><q-n>     37  </q-n></a>      <q-w>bins</q-w> <q-v>error</q-w> = {1};
+<a name="38"><q-n>     38  </q-n></a>    }
+<a name="39"><q-n>     39  </q-n></a>
+<a name="40"><q-n>     40  </q-n></a>    cp_is_ro : <q-w>coverpoint</q-w> is_ro {
+<a name="41"><q-n>     41  </q-n></a>      <q-w>bins</q-w> ro = {1};
+<a name="42"><q-n>     42  </q-n></a>      <q-w>bins</q-w> rw = {0};
+<a name="43"><q-n>     43  </q-n></a>    }
+<a name="44"><q-n>     44  </q-n></a>
+<a name="45"><q-n>     45  </q-n></a>    <q-m>// cross: every register hit for both read &amp; write, split RO/RW</q-m>
+<a name="46"><q-n>     46  </q-n></a>    x_idx_rw_ro : <q-w>cross</q-w> cp_reg_idx, cp_rw, cp_is_ro;
+<a name="47"><q-n>     47  </q-n></a>
+<a name="48"><q-n>     48  </q-n></a>    <q-m>// cross: confirm SLVERR seen on both mapped and unmapped paths</q-m>
+<a name="49"><q-n>     49  </q-n></a>    x_idx_err : <q-w>cross</q-w> cp_reg_idx, cp_pslverr;
+<a name="50"><q-n>     50  </q-n></a>
+<a name="51"><q-n>     51  </q-n></a>  <q-w>endgroup</q-w>
+<a name="52"><q-n>     52  </q-n></a>
+<a name="53"><q-n>     53  </q-n></a>  <q-w>function</q-w> <q-w>new</q-w>(<q-w>string</q-w> name = <q-l>"apb_coverage"</q-l>, uvm_component parent = <q-w>null</q-w>);
+<a name="54"><q-n>     54  </q-n></a>    <q-w>super</q-w>.<q-w>new</q-w>(name, parent);
+<a name="55"><q-n>     55  </q-n></a>    cg_apb = <q-w>new</q-w>();
+<a name="56"><q-n>     56  </q-n></a>  <q-w>endfunction</q-w>
+<a name="57"><q-n>     57  </q-n></a>
+<a name="58"><q-n>     58  </q-n></a>  <q-w>function</q-w> <q-w>void</q-w> build_phase(uvm_phase phase);
+<a name="59"><q-n>     59  </q-n></a>    <q-w>super</q-w>.build_phase(phase);
+<a name="60"><q-n>     60  </q-n></a>    cov_imp = <q-w>new</q-w>(<q-l>"cov_imp"</q-l>, <q-w>this</q-w>);
+<a name="61"><q-n>     61  </q-n></a>  <q-w>endfunction</q-w>
+<a name="62"><q-n>     62  </q-n></a>
+<a name="63"><q-n>     63  </q-n></a>  <q-w>function</q-w> <q-w>void</q-w> write_cov(apb_seq_item tr);
+<a name="64"><q-n>     64  </q-n></a>    tr_cov  = tr;
+<a name="65"><q-n>     65  </q-n></a>    reg_idx = tr.paddr / ADDR_OFFSET;
+<a name="66"><q-n>     66  </q-n></a>    is_ro   = (reg_idx &lt; NUM_REGS) ? READ_ONLY_MASK[reg_idx] : 1'b0;
+<a name="67"><q-n>     67  </q-n></a>    cg_apb.sample();
+<a name="68"><q-n>     68  </q-n></a>  <q-w>endfunction</q-w>
+<a name="69"><q-n>     69  </q-n></a>
+<a name="70"><q-n>     70  </q-n></a><q-w>endclass</q-w>
+</pre>
+</tt>
+
+  
+</body>
+</html>
